@@ -11,38 +11,47 @@ import static org.junit.Assert.*;
 
 public class FelineTest {
 
-    private Feline feline;
+    private Feline felineSpy;
 
     @Before
     public void setUp() {
-        feline = Mockito.spy(new Feline());
+        felineSpy = Mockito.spy(new Feline());
     }
 
     @Test
-    public void eatMeatTest() throws Exception {
+    public void eatMeatShouldReturnCorrectFood() throws Exception {
         List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
-        Mockito.doReturn(expectedFood).when(feline).getFood("Хищник");
-        assertEquals(expectedFood, feline.eatMeat());
-        Mockito.verify(feline, Mockito.times(1)).getFood("Хищник");
+        Mockito.doReturn(expectedFood).when(felineSpy).getFood("Хищник");
+        assertEquals(expectedFood, felineSpy.eatMeat());
+    }
+    
+    @Test
+    public void eatMeatShouldCallGetFood() throws Exception {
+        felineSpy.eatMeat();
+        Mockito.verify(felineSpy, Mockito.times(1)).getFood("Хищник");
     }
 
     @Test
     public void getFamilyTest() {
-        assertEquals("Метод getFamily должен возвращать Кошачьи","Кошачьи", feline.getFamily());
+        Feline feline = new Feline();
+        assertEquals("Метод getFamily должен возвращать Кошачьи", "Кошачьи", feline.getFamily());
     }
 
     @Test
     public void getKittensTest() {
-        assertEquals("Метод getKittens должен возвращать 1",1, feline.getKittens());
+        Feline feline = new Feline();
+        assertEquals("Метод getKittens должен возвращать 1", 1, feline.getKittens());
     }
 
     @Test
     public void getKittensTestWithArg() {
-        assertEquals("Метод getKittens(3) должен возвращать 3",3, feline.getKittens(3));
+        Feline feline = new Feline();
+        assertEquals("Метод getKittens(3) должен возвращать 3", 3, feline.getKittens(3));
     }
 
     @Test
     public void getFoodTest() throws Exception {
+        Feline feline = new Feline();
         List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
         assertEquals(expectedFood, feline.getFood("Хищник"));
     }

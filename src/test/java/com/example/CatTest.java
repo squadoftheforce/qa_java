@@ -25,10 +25,15 @@ public class CatTest {
     }
 
     @Test
-    public void getFoodTest() throws Exception {
+    public void getFoodShouldReturnCorrectValue() throws Exception {
         List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
         Mockito.when(feline.eatMeat()).thenReturn(expectedFood);
         assertEquals(expectedFood, cat.getFood());
+    }
+    
+    @Test
+    public void getFoodShouldCallFelineEatMeat() throws Exception {
+        cat.getFood();
         Mockito.verify(feline, Mockito.times(1)).eatMeat();
     }
 }

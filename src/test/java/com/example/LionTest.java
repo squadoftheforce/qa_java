@@ -17,18 +17,32 @@ public class LionTest {
     }
 
     @Test
-    public void getKittensTest() throws Exception {
+    public void getKittensShouldReturnCorrectValue() throws Exception {
         Mockito.when(feline.getKittens()).thenReturn(5);
         Lion lion = new Lion("Самец", feline);
         assertEquals("Метод getKittens должен возвращать значение из Feline", 5, lion.getKittens());
     }
+    
+    @Test
+    public void getKittensShouldCallFelineGetKittens() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        lion.getKittens();
+        Mockito.verify(feline, Mockito.times(1)).getKittens();
+    }
 
     @Test
-    public void getFoodTest() throws Exception {
+    public void getFoodShouldReturnCorrectValue() throws Exception {
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         Mockito.when(feline.eatMeat()).thenReturn(expectedFood);
         Lion lion = new Lion("Самка", feline);
         assertEquals("Метод getFood должен возвращать рацион из Feline", expectedFood, lion.getFood());
+    }
+    
+    @Test
+    public void getFoodShouldCallFelineEatMeat() throws Exception {
+        Lion lion = new Lion("Самка", feline);
+        lion.getFood();
+        Mockito.verify(feline, Mockito.times(1)).eatMeat();
     }
 
     @Test
